@@ -1,0 +1,20 @@
+.box{
+    // width: 200px;
+    padding: 5px;
+    cursor: pointer;
+
+    &:hover{
+        background-color: #7a7a7a;
+        border-radius: 5px;
+    }
+    // border-radius: 10px;
+
+}
+.colored {
+    background-color: #eee;
+    // border-radius: 5px;
+    cursor: pointer;
+    // &:hover{
+    //     background-color: blue;
+    // }
+}
