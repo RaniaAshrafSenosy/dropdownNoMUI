@@ -1,15 +1,15 @@
 .box{
-    width: 250px;
+    width: 300px;
     font-size: 14px;
+    padding: 20px;
 
 .container{
     height: 30px;
-    border: 1px solid black;
+    border: 1px solid rgb(0, 0, 0, 0.3);
     position: relative;
     cursor: pointer;
-    border-radius: 10px;
-
-    padding: 10px 30px 5px 5px; 
+    border-radius: 5px;
+    padding: 10px 30px 10px 5px; 
 
     
     .text{
@@ -27,46 +27,51 @@
         right: 10px;
         border:1px inset;
         border-width: 5px;
-        border-color:black transparent transparent transparent;
+        border-color:rgb(0, 0, 0, 0.3) transparent transparent transparent;
         margin-left: 10px;
-
+        transition: all 0.3s;
     }
 
     &::before{
         content: 'Day';
         position: absolute;
-        left: 50%;
-        bottom: -20%;
+        left: 5%;
+        bottom:40%;
         // top: 50%;
-
         // transform: translate(0,50%);
         // right: 20px;
         width: 40px;
         height: 15px;
         background-color: white;
         text-align: center;
-        font-size: x-small;
-        opacity: 0;
-        transition: all 0.3s;
+        font-size: small;
+        // opacity: 0;
+        transition: all 0.6s;
     }
 
-    &.focused::before{
+    &.labelInFocus::before{
         opacity: 1;
         // bottom: 100%;
         left: 10%;
         bottom: 80%;
         // top: 0%; 
        }
-    &.focused.container{
+
+    &.isFocused::after{
+        top: 40%;
+        border-color:transparent transparent rgb(0, 0, 0, 0.8)  transparent;
+    }
+    &.isFocused.container{
         // border-radius: 10px 10px 0 0;
-        border-color: blue;
+        border-color: rgb(0, 0, 0, 0.8);
     }
 }
 
 .menu{
-    background-color: rgb(47, 47, 47,0.8);
-    border-radius: 10px;
-    margin-top: 5px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+    // border-radius: 5px;
+    margin-top: 2px;
 
 }
 }

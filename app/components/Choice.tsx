@@ -7,19 +7,45 @@ type ChoiceProps ={
     onRemoveChoice: (choice:string) => void;
     color: string;
     isSelected: boolean;
-  }
+}
+const extractRgbFromRgba = (rgba: string): string => {
+    const match = rgba.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*(\d+\.?\d*)\)$/);
+    if (match) {
+        return `${match[1]}, ${match[2]}, ${match[3]}`;
+    }
+    return ''; 
+};
+
+const changeAlpha = (color: string, alpha: number): string => {
+    const rgb = extractRgbFromRgba(color);
+    return `rgba(${rgb}, ${alpha})`;
+};
+
 const Choice = ({ choice, onAddChoice,onRemoveChoice,color,isSelected }:ChoiceProps) => {
-    // const [isClicked, setIsClicked] = useState(false);
-    const handleClick = (choice:string)=> () => {
-        if(isSelected){
+    const [bgColor, setBgColor] = useState('');
+    const handleClick = (choice: string) => () => {
+        const newAlpha = isSelected ? 0 : 0.2; // Adjust alpha based on selection state
+        if (isSelected) {
             onRemoveChoice(choice);
-        }
-        else{
+            setBgColor(changeAlpha(color, newAlpha)); 
+            setTimeout(() => {
+                setBgColor('');
+            }, 150);
+        } else {
             onAddChoice(choice);
+            setBgColor(changeAlpha(color, newAlpha));
+            setTimeout(() => {
+                setBgColor('');
+            }, 150);
         }
     }
     return (
-        <div style={{ color: color }} className={clsx(styles.box,{[styles.colored]:isSelected})} onClick={handleClick(choice)}>{choice}</div>
+        <div 
+        style={{ backgroundColor: bgColor, color: color }}
+        className={clsx(styles.box,{[styles.colored]:isSelected})} 
+        onClick={handleClick(choice)}>
+            {choice}
+            </div>
     );
 }
 export default Choice;
