@@ -12,6 +12,7 @@ type SelectMenuProps = {
 const SelectMenu=({choices,colors,multiple}:SelectMenuProps)=>{
 
     const [currCohice,setCurrChoice]=useState<string[]>([]);
+    const [currColor,setCurrColor]=useState<string>('');
     const [showMenu,setShowMenu]=useState(false);
     const[isFocused,setIsFocused]=useState(false);
     const [labelInFocus,setLabelInFocus]=useState(false);
@@ -39,17 +40,24 @@ const SelectMenu=({choices,colors,multiple}:SelectMenuProps)=>{
 
     const handleClickOutside = useCallback((event: MouseEvent) => {
         if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-            console.log(showMenu)
+
             setShowMenu(false);
+            if(currCohice.length==0) setLabelInFocus(false);
+            setIsFocused(!isFocused);            
         }
-    },[showMenu]);
+    },[isFocused,currCohice.length]);
     useEffect(() => {
         document.addEventListener('click', handleClickOutside);
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
     }, [handleClickOutside]);
-// if(!multiple||!choices||colors) return <p>loading</p>
+
+    const getChoiceColor = (choice: string): string => {
+        const index = choices.indexOf(choice);
+        return colors[index % colors.length];
+    }
+
     return(
     <div className={styles.box}>
   
@@ -62,12 +70,18 @@ const SelectMenu=({choices,colors,multiple}:SelectMenuProps)=>{
             { [styles.isFocused]: isFocused }
           )}
          onClick={handleClick} >
-            <div className={styles.text}>
-
-            {/* {currCohice.length===0?'Select a day...':       */}
-          {  currCohice.join(', ')}
-            {/* } */}
-            </div>
+                <div className={styles.text}>
+                    {currCohice.map((choice,index) => (
+                        <span
+                            key={choice}
+                            className={styles.selectedChoice}
+                            style={{ color: getChoiceColor(choice) }}
+                        >
+                            {choice}
+                            {index < currCohice.length - 1 ? ', ' : ''}
+                        </span>
+                    ))}
+                </div>
             
         </div>
         <div>

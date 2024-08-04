@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "analyze": "ANALYZE=true npm run build"
+    "analyze": "ANALYZE=true npm run build",
+     "build": "node -e \"const start = Date.now(); require('child_process').execSync('next build', { stdio: 'inherit' }); console.log('Build time:', (Date.now() - start) / 1000 + ' seconds');\""
   },
   "dependencies": {
     "clsx": "^2.1.1",

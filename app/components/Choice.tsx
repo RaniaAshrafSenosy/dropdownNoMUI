@@ -16,6 +16,8 @@ const extractRgbFromRgba = (rgba: string): string => {
     return ''; 
 };
 
+
+
 const changeAlpha = (color: string, alpha: number): string => {
     const rgb = extractRgbFromRgba(color);
     return `rgba(${rgb}, ${alpha})`;
@@ -24,7 +26,7 @@ const changeAlpha = (color: string, alpha: number): string => {
 const Choice = ({ choice, onAddChoice,onRemoveChoice,color,isSelected }:ChoiceProps) => {
     const [bgColor, setBgColor] = useState('');
     const handleClick = (choice: string) => () => {
-        const newAlpha = isSelected ? 0 : 0.2; // Adjust alpha based on selection state
+        const newAlpha = isSelected ? 0 : 0.2; 
         if (isSelected) {
             onRemoveChoice(choice);
             setBgColor(changeAlpha(color, newAlpha)); 
